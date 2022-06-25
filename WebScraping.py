@@ -21,7 +21,7 @@ sleep(5)
 # venue = wait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//a[@class="list-group-item hvr-icon-forward"]')))
 # venue.click()
 sourcecode = driver.execute_script("return document.getElementsByTagName('html')[0].innerHTML")
-# print(sourcecode)
+print(sourcecode)
 
 soup = BeautifulSoup(sourcecode,"html.parser")
 # results = soup.findAll("th",{"scope":"row"})

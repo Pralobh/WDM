@@ -1,33 +1,85 @@
-{% extends 'base.html' %} {% block head%}<title>Task Master</title> {% endblock
-%} {% block body%}
-<div class="content">
-  <h1>Task Master</h1>
-  <br />
-  {% if tasks|length < 1 %}
-  <h4>There are no tasks available. Create one below!</h4>
-  {% else %}
-  <table border="1">
-    <tr>
-      <th>Task</th>
-      <th>Added</th>
-      <th>Actions</th>
-    </tr>
-    {% for task in tasks %}
-    <tr>
-      <td>{{ task.content }}</td>
-      <td>{{ task.date_created.date() }}</td>
-      <td>
-        <a href="/delete/{{task.id}}">Delete</a>
-        <br />
-        <a href="/update/{{task.id}}">Update</a>
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
-  {% endif %}
-  <form action="/" method="POST">
-    <input type="text" name="content" id="content" />
-    <input type="submit" value="Add Task" />
-  </form>
-</div>
-{% endblock %}
+{% extends 'base.html' %}
+{% block title %} Home {% endblock title %}
+{% block body %} 
+    
+
+    <div class="container">
+      <h2>Add User</h2>
+      <form action="/" method="POST">
+        <div class="mb-3">
+          <label for="userid" class="form-label">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="userid"
+            name="userid"
+            aria-describedby="emailHelp"
+          />
+          <div id="emailHelp" class="form-text">
+            We'll never share your email with anyone else.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            id="password"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="usertype" class="form-label">UserType</label>
+          <input
+            type="text"
+            class="form-control"
+            name="usertype"
+            id="usertype"
+          />
+        </div>
+
+        <button type="submit" class="btn btn-dark">Submit</button>
+      </form>
+    </div>
+
+    <div class="container my-3">
+      <h2>Table</h2>
+      {% if allinfo|length==0 %}
+      <div class="alert alert-info" role="alert">
+        No records
+      </div>     
+           
+          {% else %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Sno</th>
+            <th scope="col">Userid</th>
+            <th scope="col">Password</th>
+            <th scope="col">Usertype</th>
+            <th scope="col">DateCreated</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            
+          
+          {% for info in allinfo %}
+          <tr>
+            <th scope="row">{{loop.index}}</th>
+            <th>{{info.userid}}</th>
+            <td>{{info.password}}</td>
+            <td>{{info.usertype}}</td>
+            <td>{{info.datecreated}}</td>
+            <td>
+              <a href="/update/{{info.userid}}" type="button" class="btn btn btn-outline-dark btn-sm mx-1">Update</button>
+              <a href="/delete/{{info.userid}}" type="button" class="btn btn btn-outline-dark btn-sm mx-1">Delete</button>
+            </td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+{% endblock body %}
